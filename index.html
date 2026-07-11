@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A special invitation 🍿</title>
+<meta property="og:title" content="I made something for you 🍿">
+<meta property="og:description" content="Tap to open your invitation...">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --red: #e50914;
+    --dark: #141414;
+    --card: #1f1f1f;
+  }
+
+  html, body {
+    min-height: 100%;
+    overflow-x: hidden;
+    background: var(--dark);
+    color: #fff;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ---------- Intro splash ---------- */
+  #splash {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    transition: opacity 1s ease;
+  }
+  #splash.hide { opacity: 0; pointer-events: none; }
+  #splash .n {
+    font-size: clamp(80px, 30vw, 180px);
+    font-weight: 900;
+    color: var(--red);
+    letter-spacing: -4px;
+    animation: tudum 2.2s ease forwards;
+    text-shadow: 0 0 60px rgba(229, 9, 20, 0.6);
+  }
+  @keyframes tudum {
+    0%   { transform: scale(0.6); opacity: 0; }
+    30%  { transform: scale(1);   opacity: 1; }
+    80%  { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  /* ---------- Main scene ---------- */
+  .scene {
+    min-height: 100dvh;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+    animation: fadeIn 0.8s ease;
+  }
+  .scene.show { display: flex; }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .tag {
+    color: var(--red);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-size: clamp(28px, 7vw, 52px);
+    font-weight: 800;
+    line-height: 1.15;
+    max-width: 640px;
+  }
+
+  .sub {
+    margin-top: 16px;
+    font-size: clamp(15px, 4vw, 19px);
+    color: #b3b3b3;
+    max-width: 480px;
+    line-height: 1.5;
+  }
+
+  /* Fake movie card */
+  .poster {
+    margin: 28px 0 8px;
+    width: min(240px, 60vw);
+    border-radius: 10px;
+    background: linear-gradient(160deg, #2b0a0d 0%, var(--card) 55%, #0d0d0d 100%);
+    border: 1px solid #333;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    padding: 22px 18px 18px;
+    transform: rotate(-2deg);
+  }
+  .poster .emoji { font-size: 56px; }
+  .poster .ptitle { font-weight: 800; font-size: 18px; margin-top: 10px; }
+  .poster .meta { color: #8c8c8c; font-size: 12px; margin-top: 6px; }
+  .poster .match { color: #46d369; font-weight: 700; font-size: 13px; margin-top: 8px; }
+
+  .btn {
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 16px 34px;
+    font-size: 18px;
+    transition: transform 0.15s ease, background 0.2s ease;
+    touch-action: manipulation;
+  }
+  .btn:active { transform: scale(0.96); }
+
+  .btn-red { background: var(--red); color: #fff; }
+  .btn-red:hover { background: #f6121d; }
+  .btn-ghost { background: rgba(109,109,110,0.5); color: #fff; }
+  .btn-ghost:hover { background: rgba(109,109,110,0.7); }
+
+  .row { display: flex; gap: 14px; margin-top: 30px; flex-wrap: wrap; justify-content: center; }
+
+  /* dodging no button */
+  #noBtn { position: relative; transition: all 0.25s ease; }
+
+  /* ---------- Yes scene ---------- */
+  #yesScene h1 { color: #fff; }
+  .big { font-size: clamp(50px, 14vw, 100px); margin-bottom: 10px; }
+
+  .signature {
+    margin-top: 26px;
+    color: #b3b3b3;
+    font-size: 16px;
+    font-style: italic;
+  }
+
+  /* falling emoji */
+  .fall {
+    position: fixed;
+    top: -60px;
+    font-size: 28px;
+    z-index: 40;
+    pointer-events: none;
+    animation: fall linear forwards;
+  }
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+
+<div id="splash"><div class="n">N</div></div>
+
+<!-- Scene 1: the ask -->
+<div class="scene" id="askScene">
+  <div class="tag">Now Trending · #1 in Your Area</div>
+  <h1 id="askTitle">Movie night with me?</h1>
+  <p class="sub">I already checked — the couch has excellent reviews, the snacks are five stars, and there's a seat reserved just for you.</p>
+
+  <div class="poster">
+    <div class="emoji">🍿</div>
+    <div class="ptitle">A Night To Remember</div>
+    <div class="meta">2026 · Romance/Comedy · Unlimited episodes</div>
+    <div class="match">98% Match</div>
+  </div>
+
+  <div class="row">
+    <button class="btn btn-red" id="yesBtn">▶ &nbsp;Yes, obviously</button>
+    <button class="btn btn-ghost" id="noBtn">No thanks</button>
+  </div>
+</div>
+
+<!-- Scene 2: she said yes -->
+<div class="scene" id="yesScene">
+  <div class="big">🎉🍿</div>
+  <h1>It's a date!</h1>
+  <p class="sub">Best decision you've made all week. I'll handle the snacks — you just bring that smile.</p>
+  <p class="sub" style="margin-top:10px;">Text me back so we can pick a night 😉</p>
+  <p class="signature" id="signature"></p>
+</div>
+
+<script>
+  // Personalize with URL params:  ?to=Sarah&from=Brian
+  const params = new URLSearchParams(location.search);
+  const to = params.get('to');
+  const from = params.get('from');
+
+  if (to) {
+    document.getElementById('askTitle').textContent = `Hey ${to}... movie night with me?`;
+  }
+  if (from) {
+    document.getElementById('signature').textContent = `— ${from} ❤️`;
+  }
+
+  // Splash intro
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('hide');
+    document.getElementById('askScene').classList.add('show');
+  }, 2300);
+
+  // The "No" button doesn't really want to be clicked
+  const noBtn = document.getElementById('noBtn');
+  const yesBtn = document.getElementById('yesBtn');
+  const noTexts = ['No thanks', 'Are you sure?', 'Really sure?', 'Think about it...', 'Last chance!', 'You’re breaking my heart 💔', 'The popcorn is sad now 🥺', 'Okay the button is broken 😌'];
+  let noCount = 0;
+  let yesScale = 1;
+
+  function dodge() {
+    noCount = Math.min(noCount + 1, noTexts.length - 1);
+    noBtn.textContent = noTexts[noCount];
+    // grow the yes button a little each time
+    yesScale = Math.min(yesScale + 0.12, 1.8);
+    yesBtn.style.transform = `scale(${yesScale})`;
+    // hop somewhere random (but stay on screen)
+    const x = (Math.random() - 0.5) * Math.min(200, window.innerWidth * 0.4);
+    const y = (Math.random() - 0.5) * 120;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    // shrink it a bit too
+    const s = Math.max(1 - noCount * 0.09, 0.45);
+    noBtn.style.scale = s;
+  }
+
+  noBtn.addEventListener('pointerenter', dodge);
+  noBtn.addEventListener('click', dodge);
+
+  // She said yes 🎉
+  yesBtn.addEventListener('click', () => {
+    document.getElementById('askScene').classList.remove('show');
+    document.getElementById('yesScene').classList.add('show');
+    rain();
+  });
+
+  function rain() {
+    const emoji = ['🍿', '❤️', '🎬', '✨', '💘', '🥤'];
+    let dropped = 0;
+    const timer = setInterval(() => {
+      const el = document.createElement('div');
+      el.className = 'fall';
+      el.textContent = emoji[Math.floor(Math.random() * emoji.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (2.5 + Math.random() * 2.5) + 's';
+      el.style.fontSize = (20 + Math.random() * 24) + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 6000);
+      if (++dropped > 80) clearInterval(timer);
+    }, 90);
+  }
+</script>
+</body>
+</html>
