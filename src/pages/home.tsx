@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { Play, Info, Heart } from 'lucide-react';
 
 const phases = [
-  "Erica.",
+  "Payton.",
   "I could have just sent a text.",
   "But you deserve better production value.",
   "MAIN"
@@ -118,7 +118,7 @@ export default function Home() {
                     Netflix <span className="italic text-primary">&</span> Chill
                   </h1>
                   <p className="text-lg md:text-xl text-white/80 max-w-2xl font-light leading-relaxed">
-                    A highly anticipated evening of minimal conversation, maximum comfort, and entirely too many snacks. Starring Erica & Yours Truly.
+                    A highly anticipated evening of minimal conversation, maximum comfort, and entirely too many snacks. Starring Payton & Yours Truly.
                   </p>
 
                   <div className="flex flex-wrap items-center gap-4 mt-8">
@@ -197,7 +197,7 @@ export default function Home() {
             {/* The Final Ask */}
             <div id="rsvp" className="w-full px-6 py-32 flex flex-col items-center justify-center text-center space-y-16 relative z-10 bg-background">
               <div className="max-w-2xl mx-auto space-y-6">
-                <h2 className="text-5xl md:text-7xl font-serif italic text-white tracking-tight">So, Erica...</h2>
+                <h2 className="text-5xl md:text-7xl font-serif italic text-white tracking-tight">So, Payton...</h2>
                 <p className="text-xl md:text-2xl text-white/60 font-light">Are you coming over?</p>
               </div>
 
